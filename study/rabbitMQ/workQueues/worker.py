@@ -3,6 +3,7 @@ __author__ = 'jinlong'
 import pika
 import time
 
+#扇形交换机
 #定义连接
 credentials = pika.PlainCredentials('gdqWeb', 'BigwinWeb')
 parameters = pika.ConnectionParameters('192.168.1.96',5672,'/',credentials)
