@@ -16,7 +16,7 @@ except ImportError:
     import pickle
 d = {"a":"1","b":"2"}
 f = open(os.path.join(os.path.abspath('.'),'test.log'),'wb')
-f = open(os.path.join(os.path.abspath('.'),'test.log'),'rb')
+# f = open(os.path.join(os.path.abspath('.'),'test.log'),'rb')
 g = cPickle.load(f)
 f.close()
 print g
