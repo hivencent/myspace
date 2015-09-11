@@ -10,5 +10,9 @@ qam_proxy = QAMProxy(hostname='192.168.1.96',
                       client_id='qamproxy')
 
 result = qam_proxy.add(2,3)
+result1 = qam_proxy.echo_title('')
 print result
+print result1
+
 qam_proxy.close()
+
