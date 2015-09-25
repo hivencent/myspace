@@ -15,4 +15,3 @@ print result
 print result1
 
 qam_proxy.close()
-
