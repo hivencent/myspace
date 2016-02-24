@@ -11,6 +11,16 @@ channel = connection.channel()
 
 channel.queue_declare(queue='test_queue',durable=True)
 
+
+
+
+
+def convert_to_dict(obj):
+    data = {'appType':obj.appType, 'content':obj.content, 'noticers':obj.noticers, 'msgType':obj.msgType, 'templateId':obj.templateId, 'isSend':obj.isSend}
+    return data
+
+
+
 message = ' '.join(sys.argv[1:]) or "Hello World!"
 channel.basic_publish(exchange='',
                       routing_key='test_queue',
