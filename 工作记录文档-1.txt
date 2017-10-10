@@ -1,0 +1,358 @@
+［路由器］
+admin 	wanglibank
+
+邮箱地址：
+SMTP服务器地址：smtp.exmail.qq.com(使用SSL，端口号465)
+
+jinlong@wanglibank.com
+jinxiaoze_19901
+测试服地址：
+111.206.165.46
+用户名：jinlong
+密码：jinlong
+
+https://github.com/wanglibao/wanglibao-dashboard.git
+【账户信息】
+1.	前台：https://staging.wanglibao.com/
+2.	后台：https://staging.wanglibao.com/AK7WtEQ4Q9KPs8Io_zOncw/			用户名：jinlong 密码：123456	
+3.	BUG管理系统配置：http://111.206.165.46/zentaopms/pptv/install.php
+	admin	wangli			jinlong		123456
+4.	禅道系统地址：http://issue.wanglibank.com/index.php?m=my&f=index
+5.	Worltile：https://worktile.com/teams/f33e8cbf061280
+	用户名：jinlong  密码：3647586970
+6.	DNSPOD:
+	账号：wanglibao@wanglibank.com 	密码：wangli212
+7. 花果交易密码：192149
+8. 百度推送：http://developer.baidu.com/console#push!appid=2837476
+	wanglibao@wanglibank.com
+	Wangli212
+9. 转HTML格式：http://www.tinymce.com/tryit/dump.php
+10. ［线上mysql登录］
+mysql机器：ssh wangli@112.124.13.222 	密码：gfw84burst
+mysql -hrdsamqnzeamqnze.mysql.rds.aliyuncs.com -uwanglibao -p		密码：wanglibank
+
+	fab deploy --set group=staging,fast=true 
+
+	https://ucenter.me/
+
+	lb：121.199.33.237
+	web：112.124.39.127	121.199.9.126
+	mysql：112.124.13.222
+	
+
+
+
+
+【数据库】：
+	1. 用户余额：wanglibao_margin_margin	
+		margin	用户余额
+		freeze	冻结金额
+		withdrawing	提款中金额
+	2. 用户邀请关系表：marketing_introducedby 
+	select count(introduced_by_id),introduced_by_id from marketing_introducedby group by introduced_by_id;     
+	
+	导出：mysqldump -u用戶名 -p密码 -d 數據库名 表名 脚本名;  (-d参数只导结构)
+	     root@staging:~# mysqldump -uroot -proot wanglibao_dashboard > /home/jinlong/sql/jinlong_dashboard.sql
+	
+	导入：source /home/jinlong/1.sql 或者
+	     mysql -uroot  wanglibao < ~/Desktop/sql/staging_20150212.sql 
+	
+	select reward_id,count(reward_id) from marketing_rewardrecord GROUP BY reward_id HAVING count(reward_id)>=2;
+
+	 #cur.execute("select id_number from  wanglibao_profile_wanglibaouserprofile  where id_number='220202199002135415'")
+            #updater = cur.fetchone()
+            #return updater
+            #获取所有结果
+            #data = cur.fetchall()
+            #print data[0]
+            #重置游标
+            #cur.scroll(0, mode='absolute')
+            #取第一条结果
+            # valadata = cur.fetchone();
+            # validatacode = int(valadata[0])
+            # print validatacode
+
+/var/log/nginx
+	
+
+【GITHUB】:
+https://github.com/shuoli84/wanglibao-backend
+git@github.com:shuoli84/wanglibao-backend.git
+
+
+
+
+将本机复制到远程服务器：
+scp /Users/jinlong/Desktop/selenium_scrpt/TestCase/script/update_user.py zhangdingliang@staging.wanglibao.com:/home/jinlong/script/
+远程复制到本地：
+scp -r root@10.10.187.251:/sms_log.log ~/Desktop/
+
+
+
+
+
+【配置】
+【获取token】
+个人中心：
+https://staging.wanglibao.com/accounts/home/
+
+【API token登录】
+1. python manage.py shell
+2. from django.contrib.auth.models import User
+3. u = User.objects.get(id=1) # id is the id in table
+4. u.auth_token
+5. <Token: 3aa5a7908f14bcee433a52630afef54c2e468aac>
+6. curl -X GET https://staging.wanglibao.com/api/home/ -H 'Authorization: Token 0000792837501d755f0f81ed12a2d34780c17f78'
+	 将Token 后边的串替换为u.auth_token里的值 就可以发送api请求
+
+
+［部署supervison pid文件报错］
+删除，pid文件
+
+【LR录制脚本为空】：
+今天装了LR 9.5，发现录制后脚本没有内容，试了各种方法，最后做了如下操作问题才得以解决File→New→Create→ recording options→Network→port mapping→capture level选择winnet level data或socket level and winnet level data(之前选的是socket level data)
+
+具体原因我正在查，初步判断是启动其它服务占了端口，以后大家再遇到这种现场可以试一下这个方法，也许可以解决。
+
+我这里补充一下，对于录制端口无法启动导致录不上脚本，大家也可以这样试一下。
+Tools→ recording options→Network→port mapping→New Entry,在此新添加选项，端口选择为Any，应该也可以解决不能录制生成脚本的问题。
+
+
+18910505634:
+https://www.wanglibao.com/?promo_token=X07r3jehSp6cz9WzUf5xhQ
+
+
+
+from report.reports import *
+from django.utils import timezone
+start_time = timezone.datetime(2014,9,1)
+end_time = timezone.now()   
+ProductionAmortizationsReportGenerator.generate_report(start_time, end_time)
+
+ProductionAmortizationsSettledReportGenerator.generate_report(start_time, end_time)
+
+
+
+
+u'满标待打款', u'满标已打款', u'满标待审核', u'满标已审核'
+ select id,name,status,expected_earning_rate,publish_time,soldout_time,total_amount,ordered_amount,total_amount-ordered_amount as jianfa from wanglibao_p2p_p2pproduct where status  in ('满标待打款','满标已打款','满标待审核','满标已审核') order by soldout_time desc;
+
+
+
+
+【设置charles代理】
+1. 抓取https：
+下载charles证书，打开proxy——setting——SSL，添加域名和端口
+2. 抓取ios设备网络：
+激活proxy——setting——proxies：HTTP增加端口（不要冲突），然后在手机上设置和电脑相同ip的代理，端口和前面的端口保持一致
+
+【charles 破解】
+地址：http://download.csdn.net/download/ohyeah521/6220511
+常用介绍：http://www.cnblogs.com/cos2004/archive/2013/04/16/3024171.html
+
+
+
+alias mysql=/usr/local/mysql/bin/mysql
+
+
+
+[数据类型转换]
+json.loads,dict,list,str,int
+
+**********unitcode转int：************
+amount = u'2,000,000'
+d = int(str(amount).replace(',',''))		#先转str，在替换逗号，在转int
+
+unitcode中取出dict：
+a = [{1},{2}]
+1. 先json.loads转成list	 b = json.loads(a) 		
+2. 切片得到字典		c = b[0]
+3. len 得到字典个数	len(b)
+
+［encode－decode］
+u’金龙’.encode(‘utf-8’)   #将unitcode专程utf－8
+print '\xe4\xb8\xad\xe6\x96\x87'.decode('utf-8')	#将utf－8专成unitcode
+
+
+
+***********decimal增加小树后位数********
+	import decimal
+        a = unicode('1000000')
+        b = decimal.Decimal(a)
+        print b,type(b)
+        c = b.quantize(decimal.Decimal('1.00'))
+        print c
+
+［设置task时间］
+wanglibao/setting	CELERYBEAT_SCHEDULE
+
+[生成会员激活码]
+marketing/mock_generator 	generate_reward
+
+[sed]
+sed -n '5,10p' third_pay.py 
+
+［git］
+git pull
+git add .
+git commit -m’bug fixed’
+git push origin master
+git checkout master 	切换分支
+git branch 查看所有分支
+
+Git鼓励大量使用分支：
+
+查看分支：git branch
+
+创建分支：git branch <name>
+
+切换分支：git checkout <name>
+
+创建+切换分支：git checkout -b <name>
+
+合并某分支到当前分支：git merge <name>
+
+删除分支：git branch -d <name>
+
+禁用锁定：git merge --no-ff -m 'add test.py' jinlong	不使用fast forward模式
+
+
+
+{"desc":"分享", "url":"https://www.wanglibao.com", "shareUrl":"www.wanglibao.com", "shareTitle":"分享有奖", "shareContent":"网利宝大促销"}
+
+
+［celery重启］
+python manage.py celeryd -E -l debug
+[program:celeryworker]
+command={{ PYTHON }} {{ PROJECT_DIR }}/manage.py celeryd -l info -E -B --pidfile=/var/run/wanglibao/celeryd.pid
+
+[program:celerycam]
+command={{ PYTHON }} {{ PROJECT_DIR }}/manage.py celerycam --pidfile=/var/run/wanglibao/celerycam.pid
+
+[重启supervistor]
+python manage.py supervisor restart all
+
+
+[本地启动rabbitmq]
+(env)JinlongdeMacBook-Pro:sbin jinlong$ sudo /usr/local/sbin/rabbitmq-server –detached 
+
+
+
+10:29:56 2015
+10:31:08 2015
+68s	145
+
+10:35:32 2015
+10:36:38 2015
+
+12292611547
+
+
+【服务器添加账号】
+adduser jinlong
+passwd jinlong
+useradd -g testgroup	#添加工作组
+usermod /bin/bash jinlong
+
+爱到分才显珍贵，很多人都不懂珍惜拥有。只到失去才看到，其实那最熟悉的才是最珍贵的
+
+
+git fetch jinlong
+git merge jinlong/master
+
+
+[docker使用]
+sudo docker ps 		#查看目前镜像
+sudo docker commit 039ce2a24a3e jinlongtest		#commit对应镜像，生成一个加密串
+sudo docker run -it jinlongtest /bin/bash		#生成自己的容器
+家目录执行：./start.sh					#启动mysql
+mysql -uroot -p 					#进入mysql
+sudo docker ps -a					#查看当前镜像
+sudo docker rm 0698225ad591				#删除对应镜像id
+
+
+
+[docker的使用]
+如果自己的仓库已经clone下来了，也把主分支的源添加完成，把主分支的更新合并到自己本地分支的流程，昨天说的不太准确
+
+git fetch 远程分支
+git merge 远程分支/master
+
+这样就合并了，都以自己的master分支开发。
+
+如何部署：
+cd deploy
+fab -f staging.py depoly_staging --set who=自己的名字拼音
+
+根据提示来一步一步操作，过程会比较慢。
+测试地址：
+https://自己的名字拼音.staging.wanglibao.com
+如：
+https://lizhenjing.staging.wanglibao.com
+
+
+[部署脚本]
+桌面：depoly.py
+修改脚本名、脚本本地路径，修改脚本数据库连接
+执行：fab -f depoly.py export
+
+
+    start = datetime.datetime(now.year, now.month, now.day, 0,0,0)
+    end = datetime.datetime(now.year, now.month, now.day,23,59,59)
+
+
+select c.phone as 被邀请人手机,b.phone as 邀请人手机,a.introduced_reward as 邀请人收益,count(a.user_id) as 发送次数 from marketing_introducedbyreward as a,wanglibao_profile_wanglibaouserprofile as 
+b,wanglibao_profile_wanglibaouserprofile as c  where a.user_id=c.user_id and a.checked_status=1 and a.introduced_by_person_id = b.user_id and a.introduced_reward>=5 GROUP BY a.user_id HAVING 
+count(a.user_id)>=2;
+
+
+
+
+
+<VirtualHost *:80>
+	ServerAdmin webmaster@localhost
+	ServerName ci.company.com
+	ServerAlias ci
+	ProxyRequests Off
+	<Proxy *>
+		Order deny,allow
+		Allow from all
+	</Proxy>
+	ProxyPreserveHost on
+	ProxyPass / http://localhost:8080/ nocanon
+	AllowEncodedSlashes NoDecode
+</VirtualHost>
+
+删除索引：
+alter table tablename drop primary key;
+alter table table drop index indexname;
+
+
+1.添加PRIMARY KEY（主键索引）
+mysql>ALTER TABLE `table_name` ADD PRIMARY KEY ( `column` )
+2.添加UNIQUE(唯一索引)
+mysql>ALTER TABLE `table_name` ADD UNIQUE (
+`column`	
+)
+3.添加INDEX(普通索引)
+mysql>ALTER TABLE `table_name` ADD INDEX index_name ( `column` )
+4.添加FULLTEXT(全文索引)
+mysql>ALTER TABLE `table_name` ADD FULLTEXT ( `column`)
+5.添加多列索引
+mysql>ALTER TABLE `table_name` ADD INDEX index_name ( `column1`, `column2`, `column3` ) 
+
+
+CREATE TABLE fee_back （select * from fee）
+INSERT INTO fee (select * from fee_back);
+
+表内复制数据：
+insert into fee_back(user_id,fee,created_at) select user_id,fee,created_at from fee_back;
+
+INSERT INTO marketdatasnapshot_day(SYMBOL,STOCKNAME,SYMANDEXCHANGE,EXCHANGE,PRICE,VOLUME,AMOUNT,PRECLOSE,OPEN,DAYHIGH,DAYLOW,PRESETTLE,SETTLE,LIMITUP,LIMITDOWN,PREOPENINTEREST,OPENINTEREST,AVERAGEPRICE,IOPV,NETBUYPERCENT,DAILYCHANGE,DAILYCHANGEPERCENT,MARKETDATADATE,MARKETDATATIME,CREATETIME) select SYMBOL,STOCKNAME,SYMANDEXCHANGE,EXCHANGE,PRICE,VOLUME,AMOUNT,PRECLOSE,OPEN,DAYHIGH,DAYLOW,PRESETTLE,SETTLE,LIMITUP,LIMITDOWN,PREOPENINTEREST,OPENINTEREST,AVERAGEPRICE,IOPV,NETBUYPERCENT,DAILYCHANGE,DAILYCHANGEPERCENT,MARKETDATADATE,MARKETDATATIME,CREATETIME from marketdatasnapshot_day where SYMBOL = 600000;
+
+
+findbugs
+sonar
+
+1471338604307
+6fa459eaee8a3ca4894edb77e160355e

@@ -355,8 +355,15 @@ migrate命令会进行比较, 并应用该迁移.
 ### 构建上下游任务
 	1. 插件：Parameterized Trigger Plugin
 		* 选择任务
-		* 
 
+### jenkins读取HTML测试报告
+	1. 下载jenkins插件：HTML Publisher Plugin
+	2. 配置插件：
+		- job中“增加构建后操作步骤”，选择该插件
+		- HTML directory to archive：选择HTML文件夹位置
+		- Index page[s]：选择具体HTML文件
+		- Report title：输入显示的title
+		- 勾选，Keep past HTML reports：显示所有成功的存档
 
 ## 在linux-server下运行webdriver，安装：Xvfb、firefox
 ### 下载firefox
@@ -554,6 +561,7 @@ ssh root@192.168.1.228 "sh /home/jinlong/replace_setting.sh && service httpd res
 	地址：
 	http://kazge.com/archives/744.html
 	https://www.zybuluo.com/phper/note/73726
+	rewritecond讲解：http://www.skygq.com/2011/02/21/apache%E4%B8%ADrewritecond%E8%A7%84%E5%88%99%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D%E8%BD%AC/
 	
 
 ## vim配置：
@@ -565,3 +573,11 @@ ssh root@192.168.1.228 "sh /home/jinlong/replace_setting.sh && service httpd res
 	http://blog.phpha.com/backup/archives/1458.html
 	开机启动服务：
 	1. nfs  #done			linux文件共享系统
+
+
+
+##jenkins构建参数
+	https://wiki.jenkins-ci.org/display/JENKINS/Building+a+software+project
+   
+##selenium测试报告
+	https://github.com/SahaginOrg/sahagin-java/blob/master/wiki-images/SahaginReport.jpg

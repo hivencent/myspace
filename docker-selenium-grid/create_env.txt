@@ -1,0 +1,35 @@
+# create new VM
+$ docker-machine create -d virtualbox Grid
+
+# pointing shell
+$ eval $(docker-machine env Grid)
+
+# show status (optional)
+$ docker-machine ls
+...
+NAME   ACTIVE   DRIVER       STATE     URL                         SWARM   DOCKER    ERRORS
+Grid   *        virtualbox   Running   tcp://192.168.99.100:2376           v1.11.1
+
+# run docker-compose (Version: 1)
+$ docker-compose -f v1-docker-compose.yml up -d
+
+# run docker-compose (Version: 2)
+$ docker-compose -f v2-docker-compose.yml up -d
+
+# show status (Version: 1)
+$ docker-compose -f v1-docker-compose.yml ps
+...
+             Name                         Command           State           Ports
+------------------------------------------------------------------------------------------
+seleniumtutorial_node_1_1         /opt/bin/entry_point.sh   Up
+seleniumtutorial_node_2_1         /opt/bin/entry_point.sh   Up
+seleniumtutorial_selenium_hub_1   /opt/bin/entry_point.sh   Up      0.0.0.0:4444->4444/tcp
+
+# show status (Version: 2)
+$ docker-compose -f v2-docker-compose.yml ps
+...
+             Name                         Command           State           Ports
+------------------------------------------------------------------------------------------
+seleniumtutorial_node_1_1         /opt/bin/entry_point.sh   Up
+seleniumtutorial_node_2_1         /opt/bin/entry_point.sh   Up
+seleniumtutorial_selenium_hub_1   /opt/bin/entry_point.sh   Up      0.0.0.0:4444->4444/tcp
