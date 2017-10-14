@@ -85,29 +85,22 @@ class LoginAndroidTests(unittest.TestCase):
         # time.sleep(1)
         self.swipLeft(800)
         # time.sleep(1)
-        print "点击找保险："
         driver.find_element_by_class_name('android.widget.ImageView').click()
         # print 'driver.current_context',driver.current_context
 
-        # driver.switch_to.context(webview1)
-        time.sleep(3)
+        print "点击找保险："
         driver.find_element_by_id("com.datebao.datebaoapp:id/find_insurance").click()
-        time.sleep(3)
         driver.find_element_by_xpath('//*[@text="悦享守护百万医疗保险"]').click()
-        time.sleep(3)
 
         #切换到产品详情webview
         print '进入产品详情webview ',driver.contexts
-        time.sleep(3)
         driver.switch_to.context("NATIVE_APP")
         driver.switch_to.context("WEBVIEW_com.datebao.datebaoapp")
         print '在详情页切换webview模式：',driver.current_context
         # print driver.page_source
-        time.sleep(1)
         driver.find_element(By.XPATH,"//li[@data-id=545]").click()
-        time.sleep(1)
         driver.find_element(By.XPATH,"//li[@data-value='无社保']").click()
-        time.sleep(1)
+        time.sleep(5)
 
 
 
