@@ -30,7 +30,7 @@ class MacacaTest(unittest.TestCase):
         self.driver.init()
 
 
-    def test_get_url(self):
+    def test_datebao(self):
         self.driver.get("https://m.datebao.com")
 
         """Login"""
@@ -43,6 +43,7 @@ class MacacaTest(unittest.TestCase):
         time.sleep(1)
         self.driver.wait_for_element('class name','loginBtn').click()
 
+        """insurance"""
         time.sleep(3)
         switch_to_webview(self.driver).wait_for_element('id','ilistFooter').click()        #点击保险
         switch_to_webview(self.driver).wait_for_element('xpath',"//li[@data-tab='jiankang']").click()

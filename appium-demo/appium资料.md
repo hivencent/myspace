@@ -4,8 +4,7 @@
 ###使用
 1. **指定chrome版本**
     
-    - appium --chromedriver-executable /usr/local/lib/node_modules/appium/node_modul
-es/appium-chromedriver/chromedriver/mac/chromedriver2.20
+    - appium --chromedriver-executable /usr/local/lib/node_modules/appium/node_modules/appium-chromedriver/chromedriver/mac/chromedriver2.20
 
 
 

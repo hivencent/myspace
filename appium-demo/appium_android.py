@@ -3,11 +3,8 @@ import sys
 reload(sys)
 sys.setdefaultencoding("utf-8")
 from appium import webdriver
-from lib2to3.pgen2.driver import Driver
-from lib2to3.tests.support import driver
-from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
-import unittest, time, re
+import unittest, time
 import os
 
 PATH=lambda p:os.path.abspath(

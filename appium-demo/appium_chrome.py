@@ -3,12 +3,13 @@ import sys
 reload(sys)
 sys.setdefaultencoding("utf-8")
 from appium import webdriver
-from lib2to3.pgen2.driver import Driver
-from lib2to3.tests.support import driver
-from selenium.common.exceptions import NoSuchElementException
-import unittest, time, re
-import os
 from selenium.webdriver.common.by import By
+import unittest
+import os
+from SeleniumBase import *
+from AppiumBase import *
+
+
 
 PATH=lambda p:os.path.abspath(
 os.path.join(os.path.dirname(__file__),p)
@@ -20,36 +21,48 @@ os.path.join(os.path.dirname(__file__),p)
 appium通过手机端Web浏览器进行自动化
 """
 
-def wait_alter(seconds):
-        count = 0
-        while (count <= time):
-            ncount = seconds - count
-            time.sleep(1)
-            print u'等待%s秒，剩余%s秒' % (seconds,ncount)
-            count += 1
-        return True
+class H5Elements(object):
+
+    def __init__(self):
+        self.mine = (By.ID, "icenterFooter")
+        self.login_link = (By.LINK_TEXT, "登录")
+        self.login_tab = (By.XPATH, "//li[@tab='prReg']")
+        self.login_name = (By.CLASS_NAME, "name")
+        self.login_pwd = (By.NAME, "password")
+        self.login_button = (By.CLASS_NAME, "loginBtn")
+
+        self.insurance_footer = (By.ID,"ilistFooter")
+        self.insurance_tab_jiankang = (By.XPATH,"//li[@data-tab='jiankang']")
+
+
+def _wait(seconds):
+    count = 0
+    while (count <= time):
+        ncount = seconds - count
+        time.sleep(1)
+        print u'等待%s秒，剩余%s秒' % (seconds,ncount)
+        count += 1
+    return True
 
 
 class AppiumUsageDemo(unittest.TestCase):
 
     def setUp(self):
         desired_caps={}
-        # desired_caps['device'] = 'android'
         desired_caps['platformName']='Android'
         desired_caps['browserName']='Chrome'
-        desired_caps['version']='6.0.1'
-        # desired_caps['appPackage'] = 'com.datebao.datebaoapp'
-        desired_caps['deviceName']='XiaoMi'       #这是测试机的型号，可以查看手机的关于本机选项获得
+        desired_caps['version']='7.0'
+        desired_caps['deviceName']='XiaoMi'
 
-        # desired_caps['app'] = '/Users/jinlong/Desktop/app-automation-test/macaca/app-datebao-release.apk'    #被测试的App在电脑上的位置
-
-        #如果知道被测试对象的apppage，appActivity可以加上下面这两个参数，如果不知道，可以注释掉，不影响用例执行
-        #desired_caps['appPackage']='com.subject.zhongchou'
-        #desired_caps['appActivity']='.ZhongChou'
         self.driver=webdriver.Remote('http://localhost:4723/wd/hub',desired_caps)
         self.driver.implicitly_wait(15)
 
-    def scroll_to_element(self,driver,element):
+
+        self.webdriver = NewWebDriverUtil(self.driver)
+        self.wait = NewWaitUtil(self.driver)
+        self.elements = H5Elements()
+
+    def _scroll_to_element(self,driver,element):
         """
         滚动元素到最上方
         :param driver:
@@ -58,59 +71,54 @@ class AppiumUsageDemo(unittest.TestCase):
         """
         driver.execute_script("arguments[0].scrollIntoView(true);", element)
 
-    def test_login(self):
+    def test_datebao(self):
         print self.driver.contexts
         self.driver.get('https://m.datebao.com/')
-        """
-        1. 客服元素滚动到最上方
-        2. 点击客服icon
-        """
-        ele = self.driver.find_element(By.XPATH,'//*[@id="newHeaderBox"]/a')
-        self.scroll_to_element(self.driver,ele)
-        time.sleep(3)
-        self.driver.find_element(By.XPATH,'//*[@id="newHeaderBox"]/a').click()
-        self.driver.switch_to.context('CHROMIUM')           #切换到CHROMIUM
-        time.sleep(4)
 
-        # #切换到WEBVIEW模式
-        # driver.switch_to.context('WEBVIEW')
-        # print self.driver.contexts
-        #
-        #
-        # # print self.driver.page_source     #打印页面元素
-        #
-        # #判断页面是否有对话框
-        # # time.sleep(10)
-        # driver.implicitly_wait(15)
-        # head = driver.find_element_by_class_name('popup-head').text
-        # print head
-        # button = driver.find_element_by_class_name('popup-buttons')
-        # button_text = button.text
-        # print button_text
-        # #点击确定button
-        # button.click()
-        # time.sleep(1)
-        # #获取当前的activity
-        # print '取当前的activity',driver.current_activity
-        # # print driver.find_element_by_class_name('loading').get_attribute()
-        # #用CSS获取input指定类型的标签
-        #
-        # text = driver.find_element_by_css_selector('input[type=text]')
-        # if text.get_attribute('placeholder') == u'用户名':
-        #     text.send_keys('13298764321')
-        #
-        # password = driver.find_element_by_css_selector('input[type=password]')
-        # if password.get_attribute('placeholder') == u'密码':
-        #     password.send_keys('123qwe')
-        #
-        # driver.find_element_by_xpath('/html/body/div[3]/div[2]/ion-modal-view/ion-content/div[4]/button').click()
-        #
-        #
-        # time.sleep(5)
-        #
+        """登录"""
+        self.webdriver.click(self.elements.mine)
+        self.webdriver.click(self.elements.login_link)
+        self.webdriver.click(self.elements.login_tab)
+        self.webdriver.input_text(self.elements.login_name,"18910505634")
+        self.webdriver.input_text(self.elements.login_pwd,"jinlong1990")
+        self.webdriver.click(self.elements.login_button)
 
-        # self.driver.tap([(64, 822), (174, 936)], 500).start_client()
-        # self.driver.tap([(64,822,174990)])
+        """保险footer"""
+        self.webdriver.click(self.elements.insurance_footer)
+        self.webdriver.click(self.elements.insurance_tab_jiankang)
+
+        '''
+        """向下滑动查找元素方式一：_scroll_to_element"""
+        product_element_543 = self.webdriver.search_element((By.XPATH,"//div[@class='tab tab1']//a[@href='https://m.datebao.com/product/show/543']"))
+        self._scroll_to_element(self.driver,product_element_543)
+        print "第一次滚动 product_element_543"
+        time.sleep(2)
+        product_element_198 = self.webdriver.search_element((By.XPATH,"//div[@class='tab tab1']//a[@href='https://m.datebao.com/product/show/198']"))
+        self._scroll_to_element(self.driver,product_element_198)
+        print "第二次滚动 product_element_198"
+        time.sleep(2)
+        product_element_8 = self.webdriver.search_element((By.XPATH,"//div[@class='tab tab1']//a[@href='https://m.datebao.com/product/show/8']"))
+        self._scroll_to_element(self.driver,product_element_8)
+        print "第三次滚动 product_element_8"
+        '''
+
+        """向下滑动查找元素方式二："""
+        #切换NATIVE
+        self.driver.switch_to.context("NATIVE_APP")
+        for i in range(1,2,1):
+            time.sleep(i)
+            AppiumBase(self.driver).swipeUp(t=800)
+            print "第%s次滑动完成" % i
+
+        """进入产品详情页"""
+        #切换WEBVIEW
+        self.driver.switch_to.context(self.driver.contexts[-1])
+        self.webdriver.click((By.XPATH,"//div[@class='tab tab1']//a[@href='https://m.datebao.com/product/show/543']"))
+        self.webdriver.click((By.XPATH,"//li[@data-id=545]"))
+        self.webdriver.click((By.XPATH,"//li[@data-value='无社保']"))
+
+        time.sleep(5)
+
 
 
     def is_element_present(self, how, what):
