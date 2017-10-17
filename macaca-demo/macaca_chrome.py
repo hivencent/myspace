@@ -56,6 +56,8 @@ class MacacaTest(unittest.TestCase):
         time.sleep(1)
         BasePage(self.driver).swipe_up(steps=0.05)
         switch_to_webview(self.driver).wait_for_element('xpath',"//div[@class='tab tab1']//a[@href='https://m.datebao.com/product/show/543']").click()
+        switch_to_webview(self.driver).wait_for_element("xpath","//li[@data-id=545]").click()
+        self.driver.wait_for_element("xpath","//li[@data-value='无社保']").click()
 
 
     def tearDown(self):
