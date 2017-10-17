@@ -99,6 +99,7 @@ class LoginAndroidTests(unittest.TestCase):
         print '在详情页切换webview模式：',driver.current_context
         # print driver.page_source
         driver.find_element(By.XPATH,"//li[@data-id=545]").click()
+        time.sleep(3)
         driver.find_element(By.XPATH,"//li[@data-value='无社保']").click()
         time.sleep(5)
 

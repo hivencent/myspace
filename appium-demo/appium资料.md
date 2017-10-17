@@ -1,5 +1,15 @@
 ##Appium
 
+
+###使用
+1. **指定chrome版本**
+    
+    - appium --chromedriver-executable /usr/local/lib/node_modules/appium/node_modul
+es/appium-chromedriver/chromedriver/mac/chromedriver2.20
+
+
+
+
 ###遇到的问题总结
 
 1. [debug] [Chromedriver] Webview version: 'Chrome/53.0.2785.49'

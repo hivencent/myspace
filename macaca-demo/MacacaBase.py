@@ -10,15 +10,15 @@ from macaca import WebDriverException
 
 
 class BasePage(object):
-
-    def __init__(self,driver):
-        self.driver = driver
     # @classmethod
     # def set_driver(cls, dri):
     #     cls.driver = dri
     #
     # def get_driver(self):
     #     return self.driver
+
+    def __init__(self,driver):
+        self.driver = driver
 
     def _get_window_size(self):
         window = self.driver.get_window_size()
@@ -41,8 +41,9 @@ class BasePage(object):
         return x_left, y_up, x_center, y_center, x_right, y_down
 
     def _swipe(self, fromX, fromY, toX, toY, steps):
-        self.driver \
-            .touch('drag', {'fromX': fromX, 'fromY': fromY, 'toX': toX, 'toY': toY, 'duration': steps})
+        print "fromX, fromY, toX, toY",fromX, fromY, toX, toY
+
+        self.driver.touch('drag', {'fromX': fromX, 'fromY': fromY, 'toX': toX, 'toY': toY, 'duration': steps})
 
     def swipe_up(self, element=None, steps=10):
         """
@@ -60,10 +61,11 @@ class BasePage(object):
             toY = y_up
         else:
             x, y = self._get_window_size()
+            print "_get_window_size",x,y
             fromX = 0.5*x
-            fromY = 0.5*y
+            fromY = 0.75*y
             toX = 0.5*x
-            toY = 0.25*y
+            toY = 0.1875*y
 
         self._swipe(fromX, fromY, toX, toY, steps)
 
@@ -83,6 +85,7 @@ class BasePage(object):
             toY = y_down
         else:
             x, y = self._get_window_size()
+            print "x y",x,y
             fromX = 0.5*x
             fromY = 0.5*y
             toX = 0.5*x
@@ -94,7 +97,7 @@ class BasePage(object):
         """
         swipe left
         :param element: WebElement of Macaca, if None while swipe window of phone
-        :param steps: steps of swipe for Android, The lower the faster （S）
+        :param steps: steps of swipe for Android, The lower the faster
         :return: None
         """
         if element:
@@ -106,9 +109,9 @@ class BasePage(object):
             toY = y_center
         else:
             x, y = self._get_window_size()
-            fromX = 0.8*x
+            fromX = 0.5*x
             fromY = 0.5*y
-            toX = 0.2*x
+            toX = 0.25*x
             toY = 0.5*y
 
         self._swipe(fromX, fromY, toX, toY, steps)

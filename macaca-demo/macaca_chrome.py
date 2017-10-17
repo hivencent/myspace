@@ -1,13 +1,21 @@
-#coding:utf-8
+# -*- coding: utf-8 -*-
+__author__ = 'jinlong'
 
 import unittest
+import os
 import time
 from macaca import WebDriver
+from macaca import Keys
+from retrying import retry
+from MacacaBase import *
+from macaca_android import *
+from swith_context import *
 
 desired_caps = {
-    'platformName': 'desktop',
-    'browserName': 'Chrome'
+    'platformName': 'Android',
+    'browserName': 'Chrome',
     # 'browserName': 'electron'
+    # 'app': 'com.android.chrome'
 }
 
 server_url = {
@@ -16,46 +24,41 @@ server_url = {
 }
 
 class MacacaTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.driver = WebDriver(desired_caps, server_url)
-        cls.driver.init()
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.driver.quit()
+    def setUp(self):
+        self.driver = WebDriver(desired_caps, server_url)
+        self.driver.init()
+
 
     def test_get_url(self):
-        self.driver                     \
-          .set_window_size(1280, 800)   \
-          .get('https://www.baidu.com')
+        self.driver.get("https://m.datebao.com")
 
-    def test_search_macaca(self):
-        # self.driver              \
-        #     .element_by_id('kw') \
-        #     .send_keys('macaca')
-
-        self.driver.element_by_id('kw').send_keys('macaca')
-
-        self.driver              \
-            .element_by_id('su') \
-            .click()
-        time.sleep(3)
-        html = self.driver.source
-        self.assertTrue('macaca' in html)
-        self.assertTrue(
-          self.driver.element_by_css_selector_if_exists(
-            '#head > div.head_wrapper'))
-        self.driver                                    \
-            .element_by_xpath_or_none('//*[@id="kw"]') \
-            .send_keys(' elementByXPath')
-        self.driver              \
-            .element_by_id('su') \
-            .click()
-        self.driver.save_screenshot("/Users/jinlong/Desktop/app-automation-test/macaca/sample-python/tests/test.png")
-        # self.driver.take_screenshot("/Users/jinlong/Desktop/app-automation-test/macaca/sample-python/tests/test.png")
+        """Login"""
+        #WEBVIEW
+        switch_to_webview(self.driver).wait_for_element("id","icenterFooter").click()
+        switch_to_webview(self.driver).wait_for_element("link text","登录").click()
+        switch_to_webview(self.driver).wait_for_element("xpath","//li[@tab='prReg']").click()
+        self.driver.wait_for_element("class name",'name').send_keys("18910505634")
+        self.driver.wait_for_element("name",'password').send_keys("jinlong1990")
         time.sleep(1)
+        self.driver.wait_for_element('class name','loginBtn').click()
 
+        time.sleep(3)
+        switch_to_webview(self.driver).wait_for_element('id','ilistFooter').click()        #点击保险
+        switch_to_webview(self.driver).wait_for_element('xpath',"//li[@data-tab='jiankang']").click()
+
+        self.driver.context = self.driver.contexts[0]
+        print u'滑动前：self.driver.context',self.driver.context
+        time.sleep(3)
+
+        BasePage(self.driver).swipe_up(steps=0.05)
+        time.sleep(1)
+        BasePage(self.driver).swipe_up(steps=0.05)
+        switch_to_webview(self.driver).wait_for_element('xpath',"//div[@class='tab tab1']//a[@href='https://m.datebao.com/product/show/543']").click()
+
+
+    def tearDown(self):
+        self.driver.quit()
 
 if __name__ == '__main__':
     unittest.main()

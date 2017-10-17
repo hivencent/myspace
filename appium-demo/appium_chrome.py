@@ -37,7 +37,7 @@ class AppiumUsageDemo(unittest.TestCase):
         # desired_caps['device'] = 'android'
         desired_caps['platformName']='Android'
         desired_caps['browserName']='Chrome'
-        desired_caps['version']='7.0'
+        desired_caps['version']='6.0.1'
         # desired_caps['appPackage'] = 'com.datebao.datebaoapp'
         desired_caps['deviceName']='XiaoMi'       #这是测试机的型号，可以查看手机的关于本机选项获得
 
@@ -70,7 +70,7 @@ class AppiumUsageDemo(unittest.TestCase):
         time.sleep(3)
         self.driver.find_element(By.XPATH,'//*[@id="newHeaderBox"]/a').click()
         self.driver.switch_to.context('CHROMIUM')           #切换到CHROMIUM
-        time.sleep(10)
+        time.sleep(4)
 
         # #切换到WEBVIEW模式
         # driver.switch_to.context('WEBVIEW')

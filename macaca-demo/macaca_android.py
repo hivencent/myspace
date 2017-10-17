@@ -7,6 +7,7 @@ from macaca import WebDriver
 from macaca import Keys
 from retrying import retry
 from MacacaBase import *
+from swith_context import *
 
 desired_caps = {
     'platformName': 'android',
@@ -18,18 +19,7 @@ server_url = {
     'port': 3456
 }
 
-def switch_to_webview(driver):
-    contexts = driver.contexts
-    print 'webview contexts:',contexts
-    driver.context = contexts[-1]
-    return driver
 
-def switch_to_native(driver):
-    contexts = driver.contexts
-    print 'native contexts:',contexts
-
-    driver.context = contexts[0]
-    return driver
 
 class MacacaTest(unittest.TestCase):
 
@@ -63,10 +53,8 @@ class MacacaTest(unittest.TestCase):
         driver.wait_for_element('xpath','//li[@data-id=545]').click()
         driver.wait_for_element('xpath',"//li[@data-value='无社保']").click()
 
-
         time.sleep(5)
         pass
-
 
 
 if __name__ == "__main__":
