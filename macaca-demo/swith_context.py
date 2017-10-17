@@ -8,9 +8,7 @@ from MacacaBase import *
 
 def switch_to_webview(driver):
     contexts = driver.contexts
-    # print 'webview contexts:',contexts
     driver.context = contexts[-1]
-    print driver.context
     return driver
 
 def switch_to_native(driver):
