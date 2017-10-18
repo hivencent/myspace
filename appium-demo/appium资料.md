@@ -6,7 +6,9 @@
     
     - appium --chromedriver-executable /usr/local/lib/node_modules/appium/node_modules/appium-chromedriver/chromedriver/mac/chromedriver2.20
 
-
+###查看本地APK包名和ACTIVITY
+    1. 进入ANDROID_HOME 目录
+    2. aapt dump badging ${apk_file_path.apk} 
 
 
 ###遇到的问题总结
@@ -46,3 +48,6 @@ com.datebao.datebaoapp.SparkActivity
 	- fullReset：iOS,删除整个模拟器目录。Android，通过卸载重置应用状态，会话结束后自动清除被测应用，默认false。
 	- autoWebview：直接切换到WEBVIEW上下文，默认false
 	- appActivity：你要从你的应用包中启动的Android Activity名称，它通常需要在前面加 .
+	
+###遗留问题
+1. 使用unicodeKeyboard后，测试结束后重置输入法不成功。

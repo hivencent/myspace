@@ -84,7 +84,10 @@ android：
 1. 手机浏览器测试：
     - 不同切面需要每次都切换到新的WEBVIEW，否则报错找不到元素
     - 调用内置手机浏览器，driver.close()，无法关闭标签页，测试完成后没有扫尾，下次再打开仍然是上次测试的界面。
-    
+2. Android：
+    -  desired_caps设置简单
+
+
 参考：
 
 1. 【环境安装】http://www.cnblogs.com/jinjiangongzuoshi/p/6537795.html

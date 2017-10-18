@@ -35,16 +35,6 @@ class H5Elements(object):
         self.insurance_tab_jiankang = (By.XPATH,"//li[@data-tab='jiankang']")
 
 
-def _wait(seconds):
-    count = 0
-    while (count <= time):
-        ncount = seconds - count
-        time.sleep(1)
-        print u'等待%s秒，剩余%s秒' % (seconds,ncount)
-        count += 1
-    return True
-
-
 class AppiumUsageDemo(unittest.TestCase):
 
     def setUp(self):

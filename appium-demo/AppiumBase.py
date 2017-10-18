@@ -2,7 +2,7 @@
 import sys
 reload(sys)
 sys.setdefaultencoding("utf-8")
-
+import time
 
 class AppiumBase():
 
@@ -29,3 +29,12 @@ class AppiumBase():
         x2 = int(l[0] * 0.05)
         # print "fromx,fromy,tox,toy",x1,y1,x2,y1
         self.driver.swipe(x1, y1, x2, y1, t)
+
+    def wait_alter(self,seconds):
+        count = 0
+        while (count <= time):
+            ncount = seconds - count
+            time.sleep(1)
+            print u'等待%s秒，剩余%s秒' % (seconds, ncount)
+            count += 1
+        return True
