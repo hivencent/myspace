@@ -97,3 +97,4 @@ android：
 5. macaca isuues：https://github.com/alibaba/macaca/issues
 7. **【macaca Document】**https://macacajs.github.io/zh/introduction
 8. 【chrome-driver下载地址】http://chromedriver.storage.googleapis.com/index.html?
+9. 【Macaca Puppeteer驱动】https://testerhome.com/topics/9753

@@ -30,11 +30,26 @@ class AppiumBase():
         # print "fromx,fromy,tox,toy",x1,y1,x2,y1
         self.driver.swipe(x1, y1, x2, y1, t)
 
-    def wait_alter(self,seconds):
-        count = 0
-        while (count <= time):
-            ncount = seconds - count
+    def wait_active_element(self,useage,value):
+        """
+        wait native element idsplayed
+        :param useage: By.ID
+        :param value: "kw"
+        :return:
+        """
+        assert self.driver.current_context == "NATIVE_APP"
+
+        count = 1
+        while (count <= 5):
             time.sleep(1)
-            print u'等待%s秒，剩余%s秒' % (seconds, ncount)
-            count += 1
-        return True
+            try:
+                if (self.driver.find_element(useage,value).is_displayed()):
+                    print "控件出现！"
+                    break
+            except:
+                print "控件未出现! wait!"
+                count += 1
+
+
+if __name__ == "__main__":
+    pass

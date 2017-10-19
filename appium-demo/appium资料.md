@@ -48,6 +48,10 @@ com.datebao.datebaoapp.SparkActivity
 	- fullReset：iOS,删除整个模拟器目录。Android，通过卸载重置应用状态，会话结束后自动清除被测应用，默认false。
 	- autoWebview：直接切换到WEBVIEW上下文，默认false
 	- appActivity：你要从你的应用包中启动的Android Activity名称，它通常需要在前面加 .
+3. 【appium支持ANDROID7.0】https://testerhome.com/topics/8419
+4. 【UIautomator2.0】https://kkboxsqa.wordpress.com/2017/09/18/appium-and-uiautomator2-part1/
 	
 ###遗留问题
 1. 使用unicodeKeyboard后，测试结束后重置输入法不成功。
+
+

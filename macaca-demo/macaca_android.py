@@ -12,6 +12,7 @@ from swith_context import *
 desired_caps = {
     'platformName': 'android',
     'app': '/Users/jinlong/Desktop/app-automation-test/macaca/app-datebao-release.apk',
+    'autoAcceptAlerts': True
     }
 
 server_url = {
@@ -39,9 +40,9 @@ class MacacaTest(unittest.TestCase):
 
         """welcome pictures"""
         time.sleep(3)
-        BasePage(self.driver).swipe_left(steps=0.1)
-        BasePage(self.driver).swipe_left(steps=0.1)
-        BasePage(self.driver).swipe_left(steps=0.1)
+        BasePage(self.driver).swipe_left(steps=0.10)
+        BasePage(self.driver).swipe_left(steps=0.10)
+        BasePage(self.driver).swipe_left(steps=0.10)
         self.driver.wait_for_element("class_name","android.widget.ImageView").click()
 
         """login"""
@@ -53,12 +54,15 @@ class MacacaTest(unittest.TestCase):
 
         """find insurance and insurance detail"""
         self.driver.wait_for_element("id","com.datebao.datebaoapp:id/find_insurance").click()
-        self.driver.wait_for_element('xpath','//*[@text="悦享守护百万医疗保险"]').click()
+        time.sleep(2)
+        BasePage(self.driver).swipe_up(steps=0.30)
+        self.driver.wait_for_element('xpath','//*[@text="e顺成人重疾险"]').click()
 
+        """config detail"""
         driver = switch_to_webview(self.driver)
         print 'driver.context',driver.context
-        driver.wait_for_element('xpath','//li[@data-id=545]').click()
-        driver.wait_for_element('xpath',"//li[@data-value='无社保']").click()
+        driver.wait_for_element('xpath',"//li[@data-value='500000']").click()
+        driver.wait_for_element('xpath',"//ul[@class='select']").click()
 
         time.sleep(5)
 
